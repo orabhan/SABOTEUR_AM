@@ -58,8 +58,14 @@ void attribuerCarteJoueur(DeckJoueurCase DeckJoueur1[], Carte fausseCarte[], int
     }
 }
 
-void afficherCarteJoueurdeck(ALLEGRO_BITMAP *cards, char filename[], DeckJoueurCase deckJoueur[], float ratio_X,
-                             float ratio_Y) {
+void afficherCarteJoueurDeck(ALLEGRO_BITMAP *cards, char filename[], DeckJoueurCase deckJoueur[]) {
+    int userMonitorWidth, userMonitorHeight;
+    ALLEGRO_MONITOR_INFO userMonitorInfo;
+    al_get_monitor_info(0, &userMonitorInfo);
+    userMonitorWidth = userMonitorInfo.x2;
+    userMonitorHeight = userMonitorInfo.y2;
+    double ratio_X = (2560.0 / userMonitorInfo.x2);
+    double ratio_Y = (1440.0 / userMonitorInfo.y2);
     ALLEGRO_COLOR color_white = al_map_rgb(255, 255, 255);
     cards = al_load_bitmap(filename);
     for (int i = 0 ; i < 6 ; i++) {
@@ -73,8 +79,15 @@ void afficherCarteJoueurdeck(ALLEGRO_BITMAP *cards, char filename[], DeckJoueurC
     }
 }
 
-void placerCarteBaseGame(ALLEGRO_BITMAP *cards, char filename[], int a, int b, float ratio_X, float ratio_Y) {
+void placerCarteBaseGame(ALLEGRO_BITMAP *cards, char filename[], int a, int b) {
     srand(time(NULL));
+    int userMonitorWidth, userMonitorHeight;
+    ALLEGRO_MONITOR_INFO userMonitorInfo;
+    al_get_monitor_info(0, &userMonitorInfo);
+    userMonitorWidth = userMonitorInfo.x2;
+    userMonitorHeight = userMonitorInfo.y2;
+    double ratio_X = (2560.0 / userMonitorInfo.x2);
+    double ratio_Y = (1440.0 / userMonitorInfo.y2);
     ALLEGRO_COLOR color_white = al_map_rgb(255, 255, 255);
     cards = al_load_bitmap(filename);
     al_draw_tinted_scaled_rotated_bitmap_region(cards,
@@ -82,6 +95,20 @@ void placerCarteBaseGame(ALLEGRO_BITMAP *cards, char filename[], int a, int b, f
                                                 256, 162,
                                                 color_white, 0, 0,
                                                 75 / ratio_X, 921 / ratio_Y,
+                                                (1 / ratio_X) * 1.02, (1 / ratio_Y) * 1.02,
+                                                0, 0);
+    al_draw_tinted_scaled_rotated_bitmap_region(cards,
+                                                0, 162,
+                                                256, 162,
+                                                color_white, 0, 0,
+                                                1958 / ratio_X, 136 / ratio_Y,
+                                                (1 / ratio_X) * 1.02, (1 / ratio_Y) * 1.02,
+                                                0, 0);
+    al_draw_tinted_scaled_rotated_bitmap_region(cards,
+                                                0, 162,
+                                                256, 162,
+                                                color_white, 0, 0,
+                                                2227 / ratio_X, 136 / ratio_Y,
                                                 (1 / ratio_X) * 1.02, (1 / ratio_Y) * 1.02,
                                                 0, 0);
     if (a == 0) {
@@ -213,4 +240,25 @@ void placerCarteBaseGame(ALLEGRO_BITMAP *cards, char filename[], int a, int b, f
                                                         0, 0);
         }
     }
+}
+
+void remplirDeckJoueur(DeckJoueurCase DeckJoueur1[], Carte fausseCarte[], int MAXPIOCHE, int toReplace) {
+    srand(time(NULL));
+    Carte temp;
+    int indice = rand() % MAXPIOCHE;
+    DeckJoueur1[toReplace].x = fausseCarte[indice].x;
+    DeckJoueur1[toReplace].y = fausseCarte[indice].y;
+    DeckJoueur1[toReplace].type = fausseCarte[indice].type;
+
+    temp.x = fausseCarte[indice].x;
+    temp.y = fausseCarte[indice].y;
+    temp.type = fausseCarte[indice].type;
+    fausseCarte[indice].x = fausseCarte[MAXPIOCHE].x;
+    fausseCarte[indice].y = fausseCarte[MAXPIOCHE].y;
+    fausseCarte[indice].type = fausseCarte[MAXPIOCHE].type;
+    fausseCarte[MAXPIOCHE].x = temp.x;
+    fausseCarte[MAXPIOCHE].y = temp.y;
+    fausseCarte[MAXPIOCHE].type = temp.type;
+
+    MAXPIOCHE -= 1;
 }

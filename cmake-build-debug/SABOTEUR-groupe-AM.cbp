@@ -78,6 +78,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/Users/theobonnet/Desktop/SABOTEUR_AM/dragAndDrop.c">
+			<Option target="SABOTEUR-groupe-AM"/>
+		</Unit>
+		<Unit filename="/Users/theobonnet/Desktop/SABOTEUR_AM/dragAndDrop.h">
+			<Option target="SABOTEUR-groupe-AM"/>
+		</Unit>
 		<Unit filename="/Users/theobonnet/Desktop/SABOTEUR_AM/fonctionSetup.c">
 			<Option target="SABOTEUR-groupe-AM"/>
 		</Unit>
@@ -85,6 +91,12 @@
 			<Option target="SABOTEUR-groupe-AM"/>
 		</Unit>
 		<Unit filename="/Users/theobonnet/Desktop/SABOTEUR_AM/main.c">
+			<Option target="SABOTEUR-groupe-AM"/>
+		</Unit>
+		<Unit filename="/Users/theobonnet/Desktop/SABOTEUR_AM/pseudo.c">
+			<Option target="SABOTEUR-groupe-AM"/>
+		</Unit>
+		<Unit filename="/Users/theobonnet/Desktop/SABOTEUR_AM/pseudo.h">
 			<Option target="SABOTEUR-groupe-AM"/>
 		</Unit>
 		<Unit filename="/Users/theobonnet/Desktop/SABOTEUR_AM/structure.h">

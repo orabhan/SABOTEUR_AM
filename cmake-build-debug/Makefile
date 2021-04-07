@@ -143,6 +143,33 @@ SABOTEUR-groupe-AM/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SABOTEUR-groupe-AM.dir/build.make CMakeFiles/SABOTEUR-groupe-AM.dir/build
 .PHONY : SABOTEUR-groupe-AM/fast
 
+dragAndDrop.o: dragAndDrop.c.o
+
+.PHONY : dragAndDrop.o
+
+# target to build an object file
+dragAndDrop.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SABOTEUR-groupe-AM.dir/build.make CMakeFiles/SABOTEUR-groupe-AM.dir/dragAndDrop.c.o
+.PHONY : dragAndDrop.c.o
+
+dragAndDrop.i: dragAndDrop.c.i
+
+.PHONY : dragAndDrop.i
+
+# target to preprocess a source file
+dragAndDrop.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SABOTEUR-groupe-AM.dir/build.make CMakeFiles/SABOTEUR-groupe-AM.dir/dragAndDrop.c.i
+.PHONY : dragAndDrop.c.i
+
+dragAndDrop.s: dragAndDrop.c.s
+
+.PHONY : dragAndDrop.s
+
+# target to generate assembly for a file
+dragAndDrop.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SABOTEUR-groupe-AM.dir/build.make CMakeFiles/SABOTEUR-groupe-AM.dir/dragAndDrop.c.s
+.PHONY : dragAndDrop.c.s
+
 fonctionSetup.o: fonctionSetup.c.o
 
 .PHONY : fonctionSetup.o
@@ -197,6 +224,33 @@ main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/SABOTEUR-groupe-AM.dir/build.make CMakeFiles/SABOTEUR-groupe-AM.dir/main.c.s
 .PHONY : main.c.s
 
+pseudo.o: pseudo.c.o
+
+.PHONY : pseudo.o
+
+# target to build an object file
+pseudo.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SABOTEUR-groupe-AM.dir/build.make CMakeFiles/SABOTEUR-groupe-AM.dir/pseudo.c.o
+.PHONY : pseudo.c.o
+
+pseudo.i: pseudo.c.i
+
+.PHONY : pseudo.i
+
+# target to preprocess a source file
+pseudo.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SABOTEUR-groupe-AM.dir/build.make CMakeFiles/SABOTEUR-groupe-AM.dir/pseudo.c.i
+.PHONY : pseudo.c.i
+
+pseudo.s: pseudo.c.s
+
+.PHONY : pseudo.s
+
+# target to generate assembly for a file
+pseudo.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/SABOTEUR-groupe-AM.dir/build.make CMakeFiles/SABOTEUR-groupe-AM.dir/pseudo.c.s
+.PHONY : pseudo.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -206,12 +260,18 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... SABOTEUR-groupe-AM"
+	@echo "... dragAndDrop.o"
+	@echo "... dragAndDrop.i"
+	@echo "... dragAndDrop.s"
 	@echo "... fonctionSetup.o"
 	@echo "... fonctionSetup.i"
 	@echo "... fonctionSetup.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... pseudo.o"
+	@echo "... pseudo.i"
+	@echo "... pseudo.s"
 .PHONY : help
 
 

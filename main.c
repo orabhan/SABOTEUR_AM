@@ -1,11 +1,13 @@
 // INCLUDE MODULES
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
+#include <allegro5/allegro_primitives.h>
 #include <allegro5/events.h>
 #include <assert.h>
 
 #include "structure.h"
 #include "fonctionSetup.h"
+#include "pseudo.h"
 
 
 // MACRO
@@ -21,7 +23,6 @@
 #define BCG_PLT_2J "../images/BCG_PLT_2J.jpg"
 #define BCG_PLT_3J "../images/BCG_PLT_3J.jpg"
 #define BCG_PLT_4J "../images/BCG_PLT_4J.jpg"
-
 #define BCG_REVEAL "../images/BCG_REVEAL_2J.jpg"
 
 #define BITMAP_CARDS "../cards.jpg"
@@ -35,6 +36,7 @@ int main() {
     al_init();
     assert(al_install_mouse());
     assert(al_init_image_addon());
+    assert(al_init_primitives_addon());
 
 
     // INIT VARIABLES ALLEGRO
@@ -52,6 +54,7 @@ int main() {
     // INIT VARIABLES FONCT
     int userMonitorWidth, userMonitorHeight;
     int isEnd = 0;
+    int selectionPseudo = 0;
     int menuActif; //1 = BCG_MENU, 2 = BCG_RULES, 3 = BCG_CHOIX_JOUEURS, 4 = BCG_NOM, 5 = PLT234J
     int choixNbrJ = 0;
     int MAXPIOCHE = 65;
@@ -81,6 +84,13 @@ int main() {
     btnChoix3J.x1 = 1095, btnChoix3J.x2 = 1465, btnChoix3J.y1 = 560, btnChoix3J.y2 = 959;
     btnChoix4J.x1 = 1751, btnChoix4J.x2 = 2121, btnChoix4J.y1 = 560, btnChoix4J.y2 = 959;
 
+    // BOUTON NOM JOUEURS
+    Bouton btnNom1, btnNom2, btnNom3, btnNom4;
+    btnNom1.x1 = 706, btnNom1.y1 = 410, btnNom1.x2 = 1853, btnNom1.y2 = 560;
+    btnNom2.x1 = 706, btnNom2.y1 = 597, btnNom2.x2 = 1853, btnNom2.y2 = 747;
+    btnNom3.x1 = 706, btnNom3.y1 = 784, btnNom3.x2 = 1853, btnNom3.y2 = 934;
+    btnNom4.x1 = 706, btnNom4.y1 = 971, btnNom4.x2 = 1853, btnNom4.y2 = 1121;
+
     // PIOCHE DE BITMAP
     Carte fausseBmpOG;
     fausseBmpOG.x = 0.0, fausseBmpOG.y = 0.0, fausseBmpOG.width = 256, fausseBmpOG.height = 162;
@@ -91,8 +101,26 @@ int main() {
     deckJoueur1->bordTnW = 6, deckJoueur1->bordTnH = 6;
     deckJoueur1->width = 256, deckJoueur1->height = 162;
 
+    // CASE PLATEAU
+    CasePlateau caseReference;
+    caseReference.x = 101.0, caseReference.y = 136.0;
+    caseReference.width = 256, caseReference.height = 162;
+    caseReference.bordTnW = 6, caseReference.bordTnH = 6;
+    CasePlateau casePlateau[5] [9];
+    int i = 0, j = 0;
+    for(i = 0 ; i < 5 ; i++) {
+        for(j = 0 ; j < 9 ; j++) {
+            casePlateau[i] [j].x = caseReference.x + (i * caseReference.width) + (2 * i * caseReference.bordTnW);
+            casePlateau[i] [j].y = caseReference.y + (i * caseReference.height) + (2 * i * caseReference.bordTnH);
+            casePlateau[i] [j].type = 0;
+            casePlateau[i] [j].isFilled = 0;
+        }
+    }
+    casePlateau[2] [0].isFilled = 1, casePlateau[0] [8].isFilled = 1;
+    casePlateau[2] [8].isFilled = 1, casePlateau[4] [8].isFilled = 1;
+
     // INIT DES CARTES DANS LA PIOCHE
-    for (int i = 0 ; i < 8 ; i++) {
+    for (i = 0 ; i < 8 ; i++) {
         fausseBmp[i].x = fausseBmpOG.x;
         fausseBmp[i].y = fausseBmpOG.y;
         fausseBmp[i].width = fausseBmpOG.width;
@@ -103,7 +131,7 @@ int main() {
         fausseBmp[i].verifHaut = 1;
         fausseBmp[i].verifBas = 1;
     }
-    for (int i = 8 ; i < 17; i++) {
+    for (i = 8 ; i < 17; i++) {
         fausseBmp[i].x = fausseBmpOG.x + (fausseBmpOG.width * 1);
         fausseBmp[i].y = fausseBmpOG.y + (fausseBmpOG.height * 0);
         fausseBmp[i].width = fausseBmpOG.width;
@@ -114,7 +142,7 @@ int main() {
         fausseBmp[i].verifHaut = 0;
         fausseBmp[i].verifBas = 1;
     }
-    for (int i = 17 ; i < 26 ; i++) {
+    for (i = 17 ; i < 26 ; i++) {
         fausseBmp[i].x = fausseBmpOG.x + (fausseBmpOG.width * 2);
         fausseBmp[i].y = fausseBmpOG.y + (fausseBmpOG.height * 0);
         fausseBmp[i].width = fausseBmpOG.width;
@@ -125,7 +153,7 @@ int main() {
         fausseBmp[i].verifHaut = 1;
         fausseBmp[i].verifBas = 1;
     }
-    for (int i = 26 ; i < 35 ; i++) {
+    for (i = 26 ; i < 35 ; i++) {
         fausseBmp[i].x = fausseBmpOG.x + (fausseBmpOG.width * 3);
         fausseBmp[i].y = fausseBmpOG.y + (fausseBmpOG.height * 0);
         fausseBmp[i].width = fausseBmpOG.width;
@@ -136,7 +164,7 @@ int main() {
         fausseBmp[i].verifHaut = 0;
         fausseBmp[i].verifBas = 0;
     }
-    for (int i = 35 ; i < 44 ; i++) {
+    for (i = 35 ; i < 44 ; i++) {
         fausseBmp[i].x = fausseBmpOG.x + (fausseBmpOG.width * 4);
         fausseBmp[i].y = fausseBmpOG.y + (fausseBmpOG.height * 0);
         fausseBmp[i].width = fausseBmpOG.width;
@@ -147,21 +175,21 @@ int main() {
         fausseBmp[i].verifHaut = 0;
         fausseBmp[i].verifBas = 0;
     }
-    for (int i = 44 ; i < 46 ; i++) {
+    for (i = 44 ; i < 46 ; i++) {
         fausseBmp[i].x = fausseBmpOG.x + (fausseBmpOG.width * 2);
         fausseBmp[i].y = fausseBmpOG.y + (fausseBmpOG.height * 1);
         fausseBmp[i].width = fausseBmpOG.width;
         fausseBmp[i].height = fausseBmpOG.height;
         fausseBmp[i].type = 2; // type réparer
     }
-    for (int i = 46 ; i < 48 ; i++) {
+    for (i = 46 ; i < 48 ; i++) {
         fausseBmp[i].x = fausseBmpOG.x + (fausseBmpOG.width * 3);
         fausseBmp[i].y = fausseBmpOG.y + (fausseBmpOG.height * 1);
         fausseBmp[i].width = fausseBmpOG.width;
         fausseBmp[i].height = fausseBmpOG.height;
         fausseBmp[i].type = 2; // type réparer
     }
-    for(int i = 48 ; i < 50 ; i++) {
+    for(i = 48 ; i < 50 ; i++) {
         fausseBmp[i].x = fausseBmpOG.x + (fausseBmpOG.width * 4);
         fausseBmp[i].y = fausseBmpOG.y + (fausseBmpOG.height * 1);
         fausseBmp[i].width = fausseBmpOG.width;
@@ -173,49 +201,49 @@ int main() {
     fausseBmp[50].width = fausseBmpOG.width;
     fausseBmp[50].height = fausseBmpOG.height;
     fausseBmp[50].type = 4; // type map
-    for(int i = 51 ; i < 53 ; i++) {
+    for(i = 51 ; i < 53 ; i++) {
         fausseBmp[i].x = fausseBmpOG.x + (fausseBmpOG.width * 0);
         fausseBmp[i].y = fausseBmpOG.y + (fausseBmpOG.height * 2);
         fausseBmp[i].width = fausseBmpOG.width;
         fausseBmp[i].height = fausseBmpOG.height;
         fausseBmp[i].type = 2; // type réparer
     }
-    for(int i = 53 ; i < 55 ; i++) {
+    for(i = 53 ; i < 55 ; i++) {
         fausseBmp[i].x = fausseBmpOG.x + (fausseBmpOG.width * 1);
         fausseBmp[i].y = fausseBmpOG.y + (fausseBmpOG.height * 2);
         fausseBmp[i].width = fausseBmpOG.width;
         fausseBmp[i].height = fausseBmpOG.height;
         fausseBmp[i].type = 2; // type réparer
     }
-    for(int i = 55 ; i < 57 ; i++) {
+    for(i = 55 ; i < 57 ; i++) {
         fausseBmp[i].x = fausseBmpOG.x + (fausseBmpOG.width * 2);
         fausseBmp[i].y = fausseBmpOG.y + (fausseBmpOG.height * 2);
         fausseBmp[i].width = fausseBmpOG.width;
         fausseBmp[i].height = fausseBmpOG.height;
         fausseBmp[i].type = 2; // type réparer
     }
-    for(int i = 57 ; i < 59 ; i++) {
+    for(i = 57 ; i < 59 ; i++) {
         fausseBmp[i].x = fausseBmpOG.x + (fausseBmpOG.width * 3);
         fausseBmp[i].y = fausseBmpOG.y + (fausseBmpOG.height * 2);
         fausseBmp[i].width = fausseBmpOG.width;
         fausseBmp[i].height = fausseBmpOG.height;
         fausseBmp[i].type = 3; // type casser
     }
-    for(int i = 59 ; i < 61 ; i++) {
+    for(i = 59 ; i < 61 ; i++) {
         fausseBmp[i].x = fausseBmpOG.x + (fausseBmpOG.width * 4);
         fausseBmp[i].y = fausseBmpOG.y + (fausseBmpOG.height * 2);
         fausseBmp[i].width = fausseBmpOG.width;
         fausseBmp[i].height = fausseBmpOG.height;
         fausseBmp[i].type = 3; // type casser
     }
-    for(int i = 61 ; i < 63 ; i++) {
+    for(i = 61 ; i < 63 ; i++) {
         fausseBmp[i].x = fausseBmpOG.x + (fausseBmpOG.width * 5);
         fausseBmp[i].y = fausseBmpOG.y + (fausseBmpOG.height * 2);
         fausseBmp[i].width = fausseBmpOG.width;
         fausseBmp[i].height = fausseBmpOG.height;
         fausseBmp[i].type = 3; // type casser
     }
-    for(int i = 63 ; i < 65 ; i++) {
+    for(i = 63 ; i < 65 ; i++) {
         fausseBmp[i].x = fausseBmpOG.x + (fausseBmpOG.width * 0);
         fausseBmp[i].y = fausseBmpOG.y + (fausseBmpOG.height * 3);
         fausseBmp[i].width = fausseBmpOG.width;
@@ -282,9 +310,29 @@ int main() {
             }
             case ALLEGRO_EVENT_TIMER: {
                 al_draw_scaled_bitmap(background, 0, 0, 2560, 1440, 0, 0, userMonitorWidth, userMonitorHeight, 0);
-                if (menuActif == 5) {
-                    afficherCarteJoueurdeck(loading, filename, deckJoueur1, ratio_X, ratio_Y);
-                    placerCarteBaseGame(loading, filename, a, b, ratio_X, ratio_Y);
+                if (menuActif == 6) {
+                    afficherCarteJoueurDeck(loading, filename, deckJoueur1);
+                    placerCarteBaseGame(loading, filename, a, b);
+                }
+                if (selectionPseudo == 1) {
+                    al_draw_filled_rectangle((btnNom1.x1 / ratio_X), (btnNom1.y1 / ratio_Y),
+                                             (btnNom1.x2 / ratio_X), (btnNom1.y2 / ratio_Y),
+                                             al_map_rgba(99, 99, 99, 0));
+                }
+                if (selectionPseudo == 2) {
+                    al_draw_filled_rectangle((btnNom2.x1 / ratio_X), (btnNom2.y1 / ratio_Y),
+                                             (btnNom2.x2 / ratio_X), (btnNom2.y2 / ratio_Y),
+                                             al_map_rgba(99, 99, 99, 0));
+                }
+                if (selectionPseudo == 3) {
+                    al_draw_filled_rectangle((btnNom3.x1 / ratio_X), (btnNom3.y1 / ratio_Y),
+                                             (btnNom3.x2 / ratio_X), (btnNom3.y2 / ratio_Y),
+                                             al_map_rgba(99, 99, 99, 0));
+                }
+                if (selectionPseudo == 4) {
+                    al_draw_filled_rectangle((btnNom4.x1 / ratio_X), (btnNom4.y1 / ratio_Y),
+                                             (btnNom4.x2 / ratio_X), (btnNom4.y2 / ratio_Y),
+                                             al_map_rgba(99, 99, 99, 0));
                 }
                 al_flip_display();
             }
@@ -365,23 +413,78 @@ int main() {
                         }
                     }
 
-                    // ACTION ECRAN SUR LE MENU 4 (BCG_REVEAL)
+                    // ACTION ECRAN SUR LE MENU 4 (BCG_NOM)
                     if ((mouse_state.buttons & 1) == 1 && menuActif == 4) {
                         // RETOUR
                         if (mouse_state.x > (btnRetour.x1 / ratio_X) && mouse_state.x < (btnRetour.x2 / ratio_X)
                             && (mouse_state.y > btnRetour.y1 / ratio_Y) && mouse_state.y < (btnRetour.y2 / ratio_Y)) {
                             background = al_load_bitmap(BCG_MENU);
-                            menuActif = 3;
+                            menuActif = 1, selectionPseudo = 0;
                         }
                         // SUIVANT
                         if (mouse_state.x > (btnSuivant.x1 / ratio_X) && mouse_state.x < (btnSuivant.x2 / ratio_X)
                             && (mouse_state.y > btnSuivant.y1 / ratio_Y) && mouse_state.y < (btnSuivant.y2 / ratio_Y)) {
-                            menuActif = 5;
+                            background = al_load_bitmap(BCG_REVEAL);
+                            menuActif = 5, selectionPseudo = 0;
+                        }
+                        // SELECTION ENTREE PSEUDO
+                        if (choixNbrJ == 2) {
+                            // SELECTION J1 PSEUDO
+                            if (mouse_state.x > (btnNom1.x1 / ratio_X) && mouse_state.x < (btnNom1.x2 / ratio_X)
+                                && (mouse_state.y > btnNom1.y1 / ratio_Y) && mouse_state.y < (btnNom1.y2 / ratio_Y)) {
+                                selectionPseudo = 1;
+                            }
+                            // SELECTION J2 PSEUDO
+                            if (mouse_state.x > (btnNom2.x1 / ratio_X) && mouse_state.x < (btnNom2.x2 / ratio_X)
+                                && (mouse_state.y > btnNom2.y1 / ratio_Y) && mouse_state.y < (btnNom2.y2 / ratio_Y)) {
+                                selectionPseudo = 2;
+                            }
+                        }
+                        // SELECTION ENTREE PSEUDO
+                        if (choixNbrJ == 3) {
+                            // SELECTION J1 PSEUDO
+                            if (mouse_state.x > (btnNom1.x1 / ratio_X) && mouse_state.x < (btnNom1.x2 / ratio_X)
+                                && (mouse_state.y > btnNom1.y1 / ratio_Y) && mouse_state.y < (btnNom1.y2 / ratio_Y)) {
+                                selectionPseudo = 1;
+                            }
+                            // SELECTION J2 PSEUDO
+                            if (mouse_state.x > (btnNom2.x1 / ratio_X) && mouse_state.x < (btnNom2.x2 / ratio_X)
+                                && (mouse_state.y > btnNom2.y1 / ratio_Y) && mouse_state.y < (btnNom2.y2 / ratio_Y)) {
+                                selectionPseudo = 2;
+                            }
+                            // SELECTION J3 PSEUDO
+                            if (mouse_state.x > (btnNom3.x1 / ratio_X) && mouse_state.x < (btnNom3.x2 / ratio_X)
+                                && (mouse_state.y > btnNom3.y1 / ratio_Y) && mouse_state.y < (btnNom3.y2 / ratio_Y)) {
+                                selectionPseudo = 3;
+                            }
+                        }
+                        // SELECTION ENTREE PSEUDO
+                        if (choixNbrJ == 4) {
+                            // SELECTION J1 PSEUDO
+                            if (mouse_state.x > (btnNom1.x1 / ratio_X) && mouse_state.x < (btnNom1.x2 / ratio_X)
+                                && (mouse_state.y > btnNom1.y1 / ratio_Y) && mouse_state.y < (btnNom1.y2 / ratio_Y)) {
+                                selectionPseudo = 1;
+                            }
+                            // SELECTION J2 PSEUDO
+                            if (mouse_state.x > (btnNom2.x1 / ratio_X) && mouse_state.x < (btnNom2.x2 / ratio_X)
+                                && (mouse_state.y > btnNom2.y1 / ratio_Y) && mouse_state.y < (btnNom2.y2 / ratio_Y)) {
+                                selectionPseudo = 2;
+                            }
+                            // SELECTION J3 PSEUDO
+                            if (mouse_state.x > (btnNom3.x1 / ratio_X) && mouse_state.x < (btnNom3.x2 / ratio_X)
+                                && (mouse_state.y > btnNom3.y1 / ratio_Y) && mouse_state.y < (btnNom3.y2 / ratio_Y)) {
+                                selectionPseudo = 3;
+                            }
+                            // SELECTION J4 PSEUDO
+                            if (mouse_state.x > (btnNom4.x1 / ratio_X) && mouse_state.x < (btnNom4.x2 / ratio_X)
+                                && (mouse_state.y > btnNom4.y1 / ratio_Y) && mouse_state.y < (btnNom4.y2 / ratio_Y)) {
+                                selectionPseudo = 4;
+                            }
                         }
                     }
 
 
-                    // ACTION ECRAN SUR LE MENU 5 (BCG_NOM)
+                    // ACTION ECRAN SUR LE MENU 5 (BCG_REVEAL)
                     if ((mouse_state.buttons & 1) == 1 && menuActif == 5) {
 
                         // RETOUR
@@ -393,20 +496,24 @@ int main() {
 
                         // SUIVANT
                         if (mouse_state.x > (btnSuivant.x1 / ratio_X) && mouse_state.x < (btnSuivant.x2 / ratio_X)
-                            && (mouse_state.y > btnSuivant.y1 / ratio_Y) && mouse_state.y < (btnSuivant.y2 / ratio_Y)) {
-                            if (choixNbrJ == 2) {
+                            && mouse_state.y > (btnSuivant.y1 / ratio_Y) && mouse_state.y < (btnSuivant.y2 / ratio_Y)) {
+                            if (choixNbrJ == 2 && menuActif == 5) {
                                 background = al_load_bitmap(BCG_PLT_2J);
-                                menuActif = 5;
+                                menuActif = 6;
                             }
-                            if (choixNbrJ == 3) {
+                            if (choixNbrJ == 3 && menuActif == 5) {
                                 background = al_load_bitmap(BCG_PLT_3J);
-                                menuActif = 5;
+                                menuActif = 6;
                             }
-                            if (choixNbrJ == 4) {
+                            if (choixNbrJ == 4 && menuActif == 5) {
                                 background = al_load_bitmap(BCG_PLT_4J);
-                                menuActif = 5;
+                                menuActif = 6;
                             }
                         }
+                    }
+
+                    // ACTION SUR LE PLATEAU DE JEU
+                    if ((mouse_state.buttons & 1) == 1 && menuActif == 6) {
                     }
                 }
             }

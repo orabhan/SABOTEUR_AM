@@ -3,7 +3,7 @@ project(SABOTEUR-groupe-AM C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(SABOTEUR-groupe-AM main.c structure.h fonctionSetup.c fonctionSetup.h)
+add_executable(SABOTEUR-groupe-AM main.c structure.h fonctionSetup.c fonctionSetup.h pseudo.c pseudo.h dragAndDrop.c dragAndDrop.h)
 
 IF(WIN32)
     target_link_libraries(SABOTEUR-groupe-AM -lmingw32 -lallegro-5.0.10-monolith-md-debug)

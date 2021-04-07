@@ -1,6 +1,8 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/SABOTEUR-groupe-AM.dir/dragAndDrop.c.o"
   "CMakeFiles/SABOTEUR-groupe-AM.dir/fonctionSetup.c.o"
   "CMakeFiles/SABOTEUR-groupe-AM.dir/main.c.o"
+  "CMakeFiles/SABOTEUR-groupe-AM.dir/pseudo.c.o"
   "SABOTEUR-groupe-AM"
   "SABOTEUR-groupe-AM.pdb"
 )

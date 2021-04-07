@@ -24,4 +24,14 @@ typedef struct{
     int type;
 } DeckJoueurCase;
 
+typedef struct{
+    float x, y;
+    int width;
+    int height;
+    int bordTnW;
+    int bordTnH;
+    int type;
+    int isFilled;
+} CasePlateau;
+
 #endif //SABOTEUR_GROUPE_AM_STRUCTURE_H

@@ -4,8 +4,10 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
+  "/Users/theobonnet/Desktop/SABOTEUR_AM/dragAndDrop.c" "/Users/theobonnet/Desktop/SABOTEUR_AM/cmake-build-debug/CMakeFiles/SABOTEUR-groupe-AM.dir/dragAndDrop.c.o"
   "/Users/theobonnet/Desktop/SABOTEUR_AM/fonctionSetup.c" "/Users/theobonnet/Desktop/SABOTEUR_AM/cmake-build-debug/CMakeFiles/SABOTEUR-groupe-AM.dir/fonctionSetup.c.o"
   "/Users/theobonnet/Desktop/SABOTEUR_AM/main.c" "/Users/theobonnet/Desktop/SABOTEUR_AM/cmake-build-debug/CMakeFiles/SABOTEUR-groupe-AM.dir/main.c.o"
+  "/Users/theobonnet/Desktop/SABOTEUR_AM/pseudo.c" "/Users/theobonnet/Desktop/SABOTEUR_AM/cmake-build-debug/CMakeFiles/SABOTEUR-groupe-AM.dir/pseudo.c.o"
   )
 set(CMAKE_C_COMPILER_ID "AppleClang")
 
