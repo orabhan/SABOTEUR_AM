@@ -8,10 +8,11 @@
 #include "structure.h"
 #include "fonctionSetup.h"
 #include "pseudo.h"
+#include "dragAndDrop.h"
 
 
 // MACRO
-#define FPS 60.0
+#define FPS 20.0
 
 // IMAGES BACKGROUND
 #define BCG_MENU "../images/BCG_MENU.jpg"
@@ -514,6 +515,10 @@ int main() {
 
                     // ACTION SUR LE PLATEAU DE JEU
                     if ((mouse_state.buttons & 1) == 1 && menuActif == 6) {
+                        if (mouse_state.x > (101 / ratio_X) && mouse_state.x < (1702 / ratio_X)
+                                && mouse_state.y > (136 / ratio_Y) && mouse_state.y < (298 / ratio_Y)) {
+                            drapAndDrop(loading, display, filename, queue, event, timer, deckJoueur1, background, a, b);
+                        }
                     }
                 }
             }

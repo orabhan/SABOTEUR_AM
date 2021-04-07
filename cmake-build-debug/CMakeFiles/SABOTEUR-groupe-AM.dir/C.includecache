@@ -6,6 +6,14 @@
 
 #IncludeRegexTransform: 
 
+/Users/theobonnet/Desktop/SABOTEUR_AM/dragAndDrop.h
+allegro5/allegro.h
+-
+allegro5/allegro_primitives.h
+-
+structure.h
+/Users/theobonnet/Desktop/SABOTEUR_AM/structure.h
+
 /Users/theobonnet/Desktop/SABOTEUR_AM/fonctionSetup.h
 structure.h
 /Users/theobonnet/Desktop/SABOTEUR_AM/structure.h
@@ -29,6 +37,8 @@ fonctionSetup.h
 /Users/theobonnet/Desktop/SABOTEUR_AM/fonctionSetup.h
 pseudo.h
 /Users/theobonnet/Desktop/SABOTEUR_AM/pseudo.h
+dragAndDrop.h
+/Users/theobonnet/Desktop/SABOTEUR_AM/dragAndDrop.h
 
 /Users/theobonnet/Desktop/SABOTEUR_AM/pseudo.h
 
