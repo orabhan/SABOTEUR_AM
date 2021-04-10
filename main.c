@@ -487,7 +487,6 @@ int main() {
 
                     // ACTION ECRAN SUR LE MENU 5 (BCG_REVEAL)
                     if ((mouse_state.buttons & 1) == 1 && menuActif == 5) {
-
                         // RETOUR
                         if (mouse_state.x > (btnRetour.x1 / ratio_X) && mouse_state.x < (btnRetour.x2 / ratio_X)
                             && (mouse_state.y > btnRetour.y1 / ratio_Y) && mouse_state.y < (btnRetour.y2 / ratio_Y)) {

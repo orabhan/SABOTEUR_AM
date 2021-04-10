@@ -36,9 +36,9 @@ void replacerSiDebordement(Rect* rectangle) {
     double ratio_X = (2560.0 / userMonitorInfo.x2);
     double ratio_Y = (1440.0 / userMonitorInfo.y2);
     if (rectangle->x < 0) { rectangle->x = 0; }
-    if (rectangle->x + 256 > (2560 / ratio_X) - 300) { rectangle->x = (2560 / ratio_X) - 300; }
+    if (rectangle->x + 256 > (2560 / ratio_X)) { rectangle->x = (2560 / ratio_X); }
     if (rectangle->y < 0) { rectangle->y = 0; }
-    if (rectangle->y + 162 > (1440 / ratio_Y) - 200) { rectangle->y = (1440 / ratio_Y) - 200; }
+    if (rectangle->y + 162 > (1440 / ratio_Y)) { rectangle->y = (1440 / ratio_Y); }
 }
 
 
@@ -96,6 +96,7 @@ void drapAndDrop(ALLEGRO_BITMAP *cards, ALLEGRO_DISPLAY *display, char filename[
             }
             case ALLEGRO_EVENT_MOUSE_BUTTON_UP: {
                 glisserDeposer = decalageXGlisserDeposer = decalageYGlisserDeposer = 0;
+
                 break;
             }
             case ALLEGRO_EVENT_MOUSE_AXES: {

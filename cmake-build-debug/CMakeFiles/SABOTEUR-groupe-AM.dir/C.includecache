@@ -6,6 +6,18 @@
 
 #IncludeRegexTransform: 
 
+/Users/theobonnet/Desktop/SABOTEUR_AM/dragAndDrop.c
+dragAndDrop.h
+/Users/theobonnet/Desktop/SABOTEUR_AM/dragAndDrop.h
+structure.h
+/Users/theobonnet/Desktop/SABOTEUR_AM/structure.h
+allegro5/allegro.h
+-
+allegro5/allegro_image.h
+-
+fonctionSetup.h
+/Users/theobonnet/Desktop/SABOTEUR_AM/fonctionSetup.h
+
 /Users/theobonnet/Desktop/SABOTEUR_AM/dragAndDrop.h
 allegro5/allegro.h
 -

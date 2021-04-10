@@ -262,3 +262,7 @@ void remplirDeckJoueur(DeckJoueurCase DeckJoueur1[], Carte fausseCarte[], int MA
 
     MAXPIOCHE -= 1;
 }
+
+void placerCarte(ALLEGRO_BITMAP *cards, char filename[], DeckJoueurCase DeckJoueur1[], int x, int y) {
+
+}
